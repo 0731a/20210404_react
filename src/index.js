@@ -1,17 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+class Card extends React.Component {
+	render() {
+		const img = "img/strings.png";
+		const imgalt = "string";
+		const desc = "A very authentic and beautiful instrument !";
+		const price = 100;
+		const productname = "Strings";
+		return (
+			<div className="col-md-6 col-lg-4 d-flex align-items-stretch">
+				<div className="card mb-3">
+						<img className="card-img-top" src={img} alt={imgalt} />
+						<div className="card-body">
+							<h4 className="card-title">{productname}</h4>
+								price: <strong>{price}</strong>
+							<p className="card-text">{desc}</p>
+							<a href="#" className="btn btn-primary">Buy</a>
+						</div>
+					</div>
+				</div>
+			);
+		}
+}
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+
+
+ReactDOM.render(<Card/>,document.getElementById('root'));
