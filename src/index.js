@@ -20,11 +20,26 @@ class Card extends React.Component {
 }
 
 class CardContainer extends React.Component{
+	constructor(props){
+		// 부모 컴포넌트로 props 전달
+		super(props);
+		// 컴포넌트의 state 객체 초기화 
+		this.state = { cards: [] }
+	};
+	componentDidMount(){
+		fetch('Cards.json')
+		.then( res => res.json() )
+		.then((result)=>{this.setState({cards:result});});
+	}
 	render(){
+		const cards = this.state.cards;
+		let items = cards.map( card => <Card key={card.id} {...card} />)  ///...는 card의 모든 정보를 CardComponent로 전달한다. card의 속성명과 cardComponent의 props 필드명이 동일하기 떄문에 가능
 		return(
-			<div>
-				<Card key='1' img="img/strings.png" alt = "strings" productName = "Strings" price = '100.0' desc = "A very authentic and beautiful instrument !" />
-				<Card key='2' img="img/redGuitar.jpeg" alt = "redGuitar" productName = "RedGuitar" price = '299.0' desc = "A  really cool red guitar that can produce super cool music!" />
+			<div className='container pt-4'>
+				<h3 className='text-center text-primary'>Products</h3>
+				<div className='pt-4 row'>
+					{ items }
+				</div>
 			</div>
 		);
 	}
@@ -32,4 +47,4 @@ class CardContainer extends React.Component{
 
 
 
-ReactDOM.render(<Card/>,document.getElementById('root'));
+ReactDOM.render(<CardContainer/>,document.getElementById('root'));
