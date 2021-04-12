@@ -21,7 +21,7 @@ class Card extends React.Component {
 }
 
 
-class CardContainer extends React.Component{
+export default class CardContainer extends React.Component{
 	constructor(props){
 		// 부모 컴포넌트로 props 전달
 		super(props);
