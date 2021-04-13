@@ -20,3 +20,119 @@ export function BuyModalWindow (props){
     );
     
 }
+
+class SignInForm extends React.Component{
+    constructor(){
+        super(props);
+        this.handleChange = this.handleChange.bind(this); // 사용자가 데이터 입력시 호출 함수 
+        this.handleSubmit = this.handleSubmit.bind(this); // 폼을 제출하면 호출되는 함수 
+        this.state = {
+            errormessage=''
+        };
+    }
+
+    handlerChange(event){
+        const name = event.target.name;
+        const value = event.target.value;
+        this.setState({
+            [name]: value
+        });
+    }
+
+    handlerSubmit(event){
+        event.preventDefault();
+        console.log(JSON.stringify(this.state));
+    }
+
+    render(){
+        let message = null;
+        if( this.state.errormessage.length != 0 ){
+            message = <h5 className="mb-4 textdanger">{this.state.errormessage}</h5>
+        }
+        return(
+            <div>
+                {message}
+                <form onSubmit={this.handleSubmit}>
+                    <h5 className="mb-4">Basic Info</h5>
+                    <div className="form-group">
+                        <label htmlFor="email">Email:</label>
+                        <input name="email" type="email" className="form-control" id="email" onChange={this.handleChange} />
+                    </div>
+                    <div className="form-group">
+                            <label htmlFor="pass">Password:</label>
+                            <input name="password" type="password" className="form-control" id="pass" onChange={this.handleChange} />
+                    </div>
+                    <div className="form-row text-center">
+                        <div className="col-12 mt-2">
+                            <button type="submit" className="btn btnsuccess btn-large">SignIn</button>
+                        </div>
+                        <div className="col-12 mt-2">
+                            <button type="submit" className="btn btn-link text-info" onClick={()=>this.props.handleNewUser()}> New User? Register</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        );
+    }
+}
+
+
+class Registeration extends React.Component{
+    constructor(){
+        super(props);
+        this.handleChange = this.handleChange.bind(this); // 사용자가 데이터 입력시 호출 함수 
+        this.handleSubmit = this.handleSubmit.bind(this); // 폼을 제출하면 호출되는 함수 
+        this.state = {
+            errormessage=''
+        };
+    }
+
+    handlerChange(event){
+        const name = event.target.name;
+        const value = event.target.value;
+        this.setState({
+            [name]: value
+        });
+    }
+
+    handlerSubmit(event){
+        event.preventDefault();
+        console.log(JSON.stringify(this.state));
+    }
+
+    render(){
+        let message = null;
+        if( this.state.errormessage.length != 0 ){
+            message = <h5 className="mb-4 textdanger">{this.state.errormessage}</h5>
+        }
+        return(
+            <div>
+                {message}
+                <form onSubmit={this.handleSubmit}>
+                    <h5 className="mb-4">Registeration</h5>
+                    <div className="form-group">
+                        <label htmlFor="username">User Name:</label>
+                        <input name="username" type="text" className="form-control" id="username" placeholder='John Doe' onChange={this.handleChange} />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="email">Email:</label>
+                        <input name="email" type="email" className="form-control" id="email" onChange={this.handleChange} />
+                    </div>
+                    <div className="form-group">
+                            <label htmlFor="pass">Password:</label>
+                            <input name="pass1" type="password" className="form-control" id="pass1" onChange={this.handleChange} />
+                    </div>
+                    <div className="form-group">
+                            <label htmlFor="pass">Confirm Password:</label>
+                            <input name="pass2" type="password" className="form-control" id="pass2" onChange={this.handleChange} />
+                    </div>
+                    <div className="form-row text-center">
+                        <div className="col-12 mt-2">
+                            <button type="submit" className="btn btnsuccess btn-large">Register</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        );
+    }
+}
