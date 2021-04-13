@@ -121,7 +121,7 @@ class CreditCardForm extends React.Component{
             <div>
                 {body}
             </div>
-        )
+        );
     };
 }
 
