@@ -21,6 +21,50 @@ export function BuyModalWindow (props){
     
 }
 
+export class SignInModalWindow extends React.Component{
+    constructor(props) {
+        super(props);
+        this.state = {
+            showRegisterationForm : false // 해당 값에 따라 SignInform이나 RegisterationForm 컴포넌트를 모달 윈도우에 추가한다.
+        };
+        this.handlerNewUser = this.handlerNewUser.bind(this);
+    }
+
+    handlerNewUser(){
+        this.setState({
+            showRegisterationForm: true
+        });
+    }
+
+    render(){
+        let modalBody = <SignInForm handlerNewUser={this.handlerNewUser} />
+        if( this.state.showRegisterationForm === true ){
+            modalBody = <Registeration />
+        }
+
+        return (
+            <modal id="register" tabIndex="-1" role="dialog" isOpen={props.showModal} toggle={props.toggle}>
+                <div role="document">
+                    <ModalHeader toggle={props.toggle} className="bg-success text-white">
+                        Sign in
+                        {
+                            /* 
+                                <button className="close">
+                                    <span aria-hidden="true>&times;</span>
+                                </button>
+                            */
+                        }
+                    </ModalHeader>
+                    <ModalBody>
+                        {modalBody}
+                    </ModalBody>
+                </div>
+            </modal>
+
+        );
+    }
+}
+
 class SignInForm extends React.Component{
     constructor(){
         super(props);
