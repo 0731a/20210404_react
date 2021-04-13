@@ -124,3 +124,23 @@ class CreditCardForm extends React.Component{
         )
     };
 }
+
+export default function CreditCardInformation(props){
+    if(!props.show){
+        return <div/>;
+    }
+
+    // 스트라이프 API를 사용해 CreaditCardForm을 추가하면 createToken() 메서드를 호출할 수 있다.
+    const CCFormWithStripe = injectStripe(CreateCardForm);
+    return(
+        <div>
+            {/*stripe provider*/}
+            <StripeProvider apiKey="pk_test_LwL4UtinpP3PXzYirX2jNfR">
+                <Elements>
+                    {/*신용카드 결제 폼*/}
+                    <CCFormWithStripe operation={props.operation} />
+                </Elements>
+            </StripeProvider>
+        </div>
+    );
+}
