@@ -110,7 +110,7 @@ class SignInForm extends React.Component{
                             <button type="submit" className="btn btnsuccess btn-large">SignIn</button>
                         </div>
                         <div className="col-12 mt-2">
-                            <button type="submit" className="btn btn-link text-info" onClick={()=>this.props.handleNewUser()}> New User? Register</button>
+                            <button type="submit" className="btn btn-link text-info" onClick={()=>this.props.handlerNewUser()}> New User? Register</button>
                         </div>
                     </div>
                 </form>
