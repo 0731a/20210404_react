@@ -18,24 +18,27 @@ export default class Navigation extends React.Component{
     }
 
     render(){
-        <div>
-            <nav className="navbar navbar-expand-lg navbar-dark bgsuccess fixed-top">
-                <div className="container">
-                    {
-                        this.props.user.loggedIn ?
-                            this.buildLoggedInMenu() : <button type="button" className="navbar-brand-order-1 btn btn-success" onClick={()=>{this.props.showModalWindow();}}>Sign in</button>
-                    }
-                    <div className="navbar-collapse" id="navbarNavAltMarkup">
-                        <div className="navbar-nav">
-                            <NavLink className="nav-item nav-link" to="/">Home</NavLink>
-                            <NavLink className="nav-item nav-link" to="/promos">Promotions</NavLink>
-                            { this.props.loggedIn? <NavLink className="nav-item nav-link" to="/myorders">My Orders</NavLink>: null }
-                            <NavLink className="nav-item nav-link" to="/about">About</NavLink>
+        return(
+            <div>
+                <nav className="navbar navbar-expand-lg navbar-dark bgsuccess fixed-top">
+                    <div className="container">
+                        {
+                            this.props.user.loggedIn ?
+                                this.buildLoggedInMenu() : <button type="button" className="navbar-brand-order-1 btn btn-success" onClick={()=>{this.props.showModalWindow();}}>Sign in</button>
+                        }
+                        <div className="navbar-collapse" id="navbarNavAltMarkup">
+                            <div className="navbar-nav">
+                                <NavLink className="nav-item nav-link" to="/">Home</NavLink>
+                                <NavLink className="nav-item nav-link" to="/promos">Promotions</NavLink>
+                                { this.props.loggedIn? <NavLink className="nav-item nav-link" to="/myorders">My Orders</NavLink>: null }
+                                <NavLink className="nav-item nav-link" to="/about">About</NavLink>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-            </nav>
-        </div>
+                </nav>
+            </div>
+        );
+       
     }
 }

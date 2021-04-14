@@ -131,7 +131,7 @@ export default function CreditCardInformation(props){
     }
 
     // 스트라이프 API를 사용해 CreaditCardForm을 추가하면 createToken() 메서드를 호출할 수 있다.
-    const CCFormWithStripe = injectStripe(CreateCardForm);
+    const CCFormWithStripe = injectStripe(CreditCardForm);
     return(
         <div>
             {/*stripe provider*/}

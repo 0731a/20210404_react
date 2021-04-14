@@ -1,9 +1,9 @@
 import React from 'react';
-import { BrowserRouter as router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import CardContainer from './ProductCards';
 import Nav from './Navigation';
-import { SignInModalWindow, BuyModalWindow } from '/.modalwindows';
+import { SignInModalWindow, BuyModalWindow } from './modalwindows';
 import About from './About';
 import Orders from './orders';
 
@@ -29,7 +29,7 @@ class App extends React.Component {
     const newState = Object.assign({},state,{showSignInModal:true});
     this.setState(newState);
   }
-  showBuyModalWindow(){
+  showBuyModalWindow(id, price){
     const state = this.state;
     const newState = Object.assign({},state,{showBuyModal:true, productid:id, price:price});
     this.setState(newState);

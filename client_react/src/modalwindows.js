@@ -2,7 +2,6 @@ import React from 'react';
 import { Modal, ModalHeader, ModalBody} from 'reactstrap'; 
 import CreditCardInformation from './CreditCard';
 
-import CreditCardForm from './CreditCards';
 
 export function BuyModalWindow (props){
     
@@ -43,9 +42,9 @@ export class SignInModalWindow extends React.Component{
         }
 
         return (
-            <modal id="register" tabIndex="-1" role="dialog" isOpen={props.showModal} toggle={props.toggle}>
+            <modal id="register" tabIndex="-1" role="dialog" isOpen={this.props.showModal} toggle={this.props.toggle}>
                 <div role="document">
-                    <ModalHeader toggle={props.toggle} className="bg-success text-white">
+                    <ModalHeader toggle={this.props.toggle} className="bg-success text-white">
                         Sign in
                         {
                             /* 
@@ -66,13 +65,13 @@ export class SignInModalWindow extends React.Component{
 }
 
 class SignInForm extends React.Component{
-    constructor(){
+    constructor(props){
         super(props);
-        this.handleChange = this.handleChange.bind(this); // 사용자가 데이터 입력시 호출 함수 
-        this.handleSubmit = this.handleSubmit.bind(this); // 폼을 제출하면 호출되는 함수 
         this.state = {
-            errormessage=''
+            errormessage:''
         };
+        this.handleChange = this.handlerChange.bind(this); // 사용자가 데이터 입력시 호출 함수 
+        this.handleSubmit = this.handlerSubmit.bind(this); // 폼을 제출하면 호출되는 함수 
     }
 
     handlerChange(event){
@@ -122,12 +121,12 @@ class SignInForm extends React.Component{
 
 
 class Registeration extends React.Component{
-    constructor(){
+    constructor(props){
         super(props);
-        this.handleChange = this.handleChange.bind(this); // 사용자가 데이터 입력시 호출 함수 
-        this.handleSubmit = this.handleSubmit.bind(this); // 폼을 제출하면 호출되는 함수 
+        this.handleChange = this.handlerChange.bind(this); // 사용자가 데이터 입력시 호출 함수 
+        this.handleSubmit = this.handlerSubmit.bind(this); // 폼을 제출하면 호출되는 함수 
         this.state = {
-            errormessage=''
+            errormessage:''
         };
     }
 
