@@ -57,7 +57,7 @@ func (h *Handler) SignIn(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"errror": err.Error()})
 		return
 	}
-	customer, err := h.db.SignInUser(customer)
+	customer, err = h.db.SignInUser(customer)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -75,7 +75,7 @@ func (h *Handler) AddUser(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"errror": err.Error()})
 		return
 	}
-	customer, err := h.db.AddUser(customer)
+	customer, err = h.db.AddUser(customer)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
