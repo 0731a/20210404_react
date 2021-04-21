@@ -4,6 +4,8 @@ import (
 	"github.com/PacktPublishing/Hands-On-Full-Stack-Development-with-Go/Chapter/backend/src/models"
 )
 
+var ErrINVALIDPASSWORD = errors.New("invalid password")
+
 type DBLayer interface {
 	GetAllProduct() ([]models.Product, error)
 	GetPromos() ([]models.Product, error)
@@ -24,7 +26,7 @@ func (db *DBORM) GetPromos() (products []models.Product, err error) {
 	return products, db.Where("promotion IS NOT NULL").find(&products).Error  // == select * from products where promotion IS NOT NULL
 }
 
-func (db *DBORM) GetCustomerByName(firstname string, lastname string) (customermodels.Customer, err error) {
+func (db *DBORM) GetCustomerByName(firstname string, lastname string) (customer models.Customer, err error) {
 	return customer,db.Where(&models.Customer{FirstName: firstname, LastName: lastname}).Find(&customer).Error // == select * from customers where firstname="~" and lastname="~"
 }
 
@@ -39,7 +41,9 @@ func (db *DBORM) GetProduct(id int) (product models.Product, err error) {
 func (db *DBORM) AddUser(customer models.Customer) (models.Customer, error) {
 	hassPassword(&customer.Pass)
 	customer.LoggedIn = true
-	return customer, db.Create(&customer).Error  // 행 생성 
+	err := db.Create(&customer).Error
+	customer.Pass = "" // 객체 반환 전 보안을 위하여 비밀번호를 지운다.
+	return customer, err  // 행 생성 
 }
 
 func (db *DBORM) SigninUser(email, pass string) (customer models.Customer, err error){
@@ -57,7 +61,7 @@ func (db *DBORM) SigninUser(email, pass string) (customer models.Customer, err e
 
 func (db *DBORM) SingOutUserById(id int) error {
 	customer := models.Customer{ // id에 해당하는 사용자 구조체 생성 
-		Model. gorm.Model{
+		Model: gorm.Model{
 			ID: uint(id),
 		},
 	}
