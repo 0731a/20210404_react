@@ -5,8 +5,8 @@ import (
 )
 
 func RunAPI(address string) error{
-	h, errn := NewHandler()
-	if err := {
+	h, err := NewHandler()
+	if err != nil {
 		return error
 	}
 	return RunAPIWithHandler(address, h)
