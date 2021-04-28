@@ -2,6 +2,7 @@ package dblayer
 
 import (
 	"encoding/json"
+	"fmt"
 
 	"github.com/PacktPublishing/Hands-On-Full-Stack-Development-with-Go/Chapter07/backend/src/models"
 	"github.com/PacktPublishing/Hands-On-Full-Stack-Development-with-Go/tree/master/Chapter08/backend/src/models"
@@ -434,4 +435,17 @@ func NewMockDBLayerWithData() *MockDBLayer {
 	json.Unmarshal([]byte(CUSTOMERS), &customers)
 	json.Unmarshal([]byte(ORDERS), &orders)
 	return NewMockDBLayer(products, customers, orders)
+}
+
+func (mock *MockDBLayer) GetProduct(id int) (models.Product, error) {
+	result := models.Product{}
+	if mock.err != nil {
+		return result, mock.err
+	}
+	for _, product := range mock.products {
+		if product.ID == uint(id) {
+			return product, nil
+		}
+	}
+	return result, fmt.Errorf("Could not find product with id %d", id)
 }
