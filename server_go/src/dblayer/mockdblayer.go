@@ -437,7 +437,30 @@ func NewMockDBLayerWithData() *MockDBLayer {
 	return NewMockDBLayer(products, customers, orders)
 }
 
-func (mock *MockDBLayer) GetProduct(id int) (models.Product, error) {
+func (mock *MockDBLayer) GetMockProductData() []models.Product {
+	return mock.products
+}
+
+func (mock *MockDBLayer) GetMockCustomersData() []models.Customer {
+	return mock.customers
+}
+
+func (mock *MockDBLayer) GetMockOrderData() []models.Order {
+	return mock.orders
+}
+
+func (mock *MockDBLayer) SetError(err error) {
+	mock.err = err
+}
+
+func (mock *MockDBLayer) GetAllProducts() ([]models.Product, error){
+	if mock.err != nil {
+		return nil, mock.err
+	}
+	return mock.products, nil
+}
+
+func (mock *MockDBLayer) GetPromos(id int) (models.Product, error) {
 	result := models.Product{}
 	if mock.err != nil {
 		return result, mock.err
@@ -448,4 +471,117 @@ func (mock *MockDBLayer) GetProduct(id int) (models.Product, error) {
 		}
 	}
 	return result, fmt.Errorf("Could not find product with id %d", id)
+}
+
+func (mock *MockDBLayer) GetProducts(id int) (models.Product, error){
+	result := models.Product{}
+	if mock.err != nil {
+		return result, mock.err
+	}
+	fot _, product := range mock.products {
+		if product.ID == unit(id){
+			return product, nil
+		}
+	}
+	return result, fmt.Errorf("Could not find product with id %d", id)
+}
+
+func (mock *MockDBLayer) GetCustomerByName(first, last string) (models.Customer, error){
+	result := models.Customer{}
+	if mock.err != nil {
+		return result, mock.err
+	}
+	for _, customer := range mock.customers {
+		if strings.EqaulFord(customer.FirstName, first) && strings.EqaulFord(customer.LastName, last){
+			return customer, nil
+		}
+	}
+	return result, fmt.Errorf("Could not find user %s %s", first, last)
+}
+
+func (mock *MockDBLayer) GetCustomerById(id int) (models.Customer, error){
+	result := models.Customer{}
+	if mock.err != nil {
+		return result, mock.err
+	}
+	for _, customer := range mock.customers {
+		if customer.ID == uint(id) {
+			return customer, nil
+		}
+	}
+	return result, fmt.Errorf("Could not find user with id %d", id)
+}
+
+func (mock *MockDBLayer) AddUser(customer models.Customer) (models.Customer, error){
+	if mock.err != nil {
+		return models.Customer(), mock.err
+	}
+	mock.customer = append(mock.customers, customer)
+	return customer, nil
+}
+
+func (mock *MockDBLayer) SignInUser(email, password string) (models.Customer, error){
+	if mock.err != nil {
+		return models.Customer{}, err
+	}
+	for _, customer := range mock.customers {
+		if strings.EqaulFord(email, customer.Email) && customer.Pass == password {
+			customer.LoggedIn = true
+			return customer, nil
+		}
+	}
+	return models.Customer{}, fmt.Errorf("Could not sign in user %s", email)
+}
+
+func (mock *MockDBLayer)SignOutUserById(id int) error {
+	if mock.err != nil {
+		return mock.err
+	}
+	for _, customer := range mock.customers {
+		if customer.Id = unit(id){
+			customer.LoggedIn = false
+			return nil
+		}
+	}
+	return fmt.Errorf("Could not sign out user %d", id)
+}
+
+func (mock *MockDBLayer) GetCustomerOrdersByID(id int)([]models.Order, error){
+	if mock.err != nil {
+		return nil, mock.err
+	}
+	for _, customer := range mock.customers {
+		if customer.ID == uint(id) {
+			return customer.Orders, nil
+		}
+	}
+	return nil, fmt.Errorf("Could not find customer id %d", id)
+}
+
+func (mock *MockDBLayer) AddOrder(order models.Order) error {
+	if mock.err != nil {
+		return mock.err
+	}
+	mock.orders = append(mock.orders, order)
+	for _, customer := range mock.customers {
+		if customer.ID == uint(order.CustomerID){
+			customer.Orders = append(customer.Orders, order)
+			return nil
+		}
+	}
+	return fmt.Errorf("Could not find customer id %d for order", id)
+}
+
+func (mock *MockDBLayer) GetCreditCardCID(id int) (string, error) {
+	if mock.err != nil {
+		return "", mock.err
+	}
+	return "", nil
+}
+
+func (mock *MockDBLayer) SaveCreditCardForCustomer(int, string) error {
+	if mock.err != nil {
+		return mock.err
+	}
+	return nil
 }
